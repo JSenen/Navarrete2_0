@@ -38,7 +38,7 @@ function renderForm($etiqueta, $extension, $ubicacion, $numserie, $error)
                 <input type="text" name="numserie" value="<?php echo $numserie; ?>" class="form-control" oninput="this.value = this.value.toUpperCase()"/>
             </div>
             
-                <input class="btn btn-primary btn-save" type="submit" name="grabar" value="GRABAR">
+                <input class="btn btn-primary btn-save" type="submit" name="submit" value="GRABAR">
             
         </form>
         <form name="MiForm" id="MiForm" method="post" action="cargar.php" enctype="multipart/form-data">
@@ -48,7 +48,7 @@ function renderForm($etiqueta, $extension, $ubicacion, $numserie, $error)
           <div class="col-sm-8">
             <input type="file" class="form-control" id="image" name="image" multiple>
           </div>
-          <button name="submit_imagen" class="btn btn-primary">Cargar Imagen</button>
+          <input class="btn btn-primary btn-save" type="submit" name="submitimagen" value="GRABAR">
         </div>
       </form>
      </main>
@@ -63,7 +63,7 @@ include('./model/connect-db.php');
 
 // Comprueba si el formulario ha sido enviado.
 // Si se ha enviado, comienza el proceso el formulario y guarda los datos en la DB
-if (isset($_POST['grabar'])) {
+if (isset($_POST['submit'])) {
 // Obtenemos los datos del formulario, asegur�ndonos que son v�lidos.
     $etiqueta = htmlspecialchars($_POST['etiqueta']);
     $extension = htmlspecialchars($_POST['extension']);
@@ -83,7 +83,7 @@ if (isset($_POST['grabar'])) {
     } else {
 // guardamos los datos en la base de datos
         try {
-            $stmt = $dbh->prepare("INSERT INTO phones (etiqueta_tf, extension_tf, ubicacion_tf, serialnumber_tf) VALUES (:etiqueta,:extension,:ubicacion,:serialnumber)");
+            $stmt = $dbh->prepare("INSERT INTO phones (etiqueta_tf, extension_tf, ubicacion_tf, serialnumber_tf) VALUES (:etiqueta,:extension, :ubicacion, :serialnumber)");
             $stmt->bindParam(':etiqueta', $_POST['etiqueta'], PDO::PARAM_STR);
             $stmt->bindParam(':extension', $_POST['extension'], PDO::PARAM_STR);
             $stmt->bindParam(':ubicacion', $_POST['ubicacion'], PDO::PARAM_STR);
