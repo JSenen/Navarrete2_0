@@ -25,7 +25,9 @@
           <li><a href="">Telefonía</a>
               <ul class="submenu">
                 <li><a href="./telefonia.php">Grabar</a></li>
-              </ul>			
+                <li><a href="./telefonia.php">Listado</a></li>
+                <li><a href="./telefonia.php">Extensiones</a></li>
+              </ul>  		
           </li>
           <li><a href="">Videoconferencias</a>
               <ul class="submenu">

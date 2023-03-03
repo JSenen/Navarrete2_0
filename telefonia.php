@@ -2,7 +2,7 @@
   include('./view/header.php');
   
 // crear el nuevo formulario de nuevo registro
-function renderForm($etiqueta, $extension, $ubicacion, $error)
+function renderForm($etiqueta, $extension, $ubicacion, $numserie, $error)
 {
     ?>
     <!DOCTYPE html>
@@ -33,10 +33,24 @@ function renderForm($etiqueta, $extension, $ubicacion, $error)
                 <label for="name">Ubicacion TF: </label>
                 <input type="text" name="ubicacion" value="<?php echo $ubicacion; ?>" class="form-control" oninput="this.value = this.value.toUpperCase()"/>
             </div>
+            <div class="form-group">
+                <label for="name">Número de Serie: <label>
+                <input type="text" name="numserie" value="<?php echo $numserie; ?>" class="form-control" oninput="this.value = this.value.toUpperCase()"/>
+            </div>
             
-                <input class="btn btn-primary btn-save" type="submit" name="submit" value="GRABAR">
+                <input class="btn btn-primary btn-save" type="submit" name="grabar" value="GRABAR">
             
         </form>
+        <form name="MiForm" id="MiForm" method="post" action="cargar.php" enctype="multipart/form-data">
+        <h4 class="text-center">Seleccione imagen a cargar</h4>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Archivos</label>
+          <div class="col-sm-8">
+            <input type="file" class="form-control" id="image" name="image" multiple>
+          </div>
+          <button name="submit_imagen" class="btn btn-primary">Cargar Imagen</button>
+        </div>
+      </form>
      </main>
     </body>
     </html>
@@ -46,30 +60,34 @@ function renderForm($etiqueta, $extension, $ubicacion, $error)
 
 // conectar a la base de datos
 include('./model/connect-db.php');
+
 // Comprueba si el formulario ha sido enviado.
 // Si se ha enviado, comienza el proceso el formulario y guarda los datos en la DB
-if (isset($_POST['submit'])) {
+if (isset($_POST['grabar'])) {
 // Obtenemos los datos del formulario, asegur�ndonos que son v�lidos.
     $etiqueta = htmlspecialchars($_POST['etiqueta']);
     $extension = htmlspecialchars($_POST['extension']);
     $ubicacion = htmlspecialchars($_POST['ubicacion']);
+    $numserie = htmlspecialchars($_POST['numserie']);
 //Convertimos todos los datos a mayusculas
     $etiqueta = strtoupper($etiqueta);
     $extension = strtoupper($extension);
     $ubicacion = strtoupper($ubiacion);
+    $numserie = strtoupper($numserie);
 // Comprueba que ambos campos han sido introducidos
    if ($etiqueta == '' ) {
 // Genera el mensaje de error
         $error = 'ERROR: Por favor, introduce la etiqueta.!';
 // Si ning�n campo est� en blanco, muestra el formulario otra vez
-        renderForm($etiqueta, $extension, $ubicacion,$error);
+        renderForm($etiqueta, $extension, $ubicacion, $numserie, $error);
     } else {
 // guardamos los datos en la base de datos
         try {
-            $stmt = $dbh->prepare("INSERT INTO phones (etiqueta_tf, extension_tf, ubicacion_tf) VALUES (:etiqueta,:extension, :ubicacion)");
+            $stmt = $dbh->prepare("INSERT INTO phones (etiqueta_tf, extension_tf, ubicacion_tf, serialnumber_tf) VALUES (:etiqueta,:extension,:ubicacion,:serialnumber)");
             $stmt->bindParam(':etiqueta', $_POST['etiqueta'], PDO::PARAM_STR);
             $stmt->bindParam(':extension', $_POST['extension'], PDO::PARAM_STR);
             $stmt->bindParam(':ubicacion', $_POST['ubicacion'], PDO::PARAM_STR);
+            $stmt->bindParam(':serialnumber', $_POST['serialnumber'], PDO::PARAM_STR);
             $stmt->execute();
         } catch (PDOException $e) {
             echo "ERROR: " . $e->getMessage();
@@ -79,7 +97,7 @@ if (isset($_POST['submit'])) {
     }
 } else // Si el formulario no han sido enviado, muestra el formulario
 {
-    renderForm('', '', '','');
+    renderForm('', '', '', '', '');
 }
 include ('./view/footer.php');
 ?>
