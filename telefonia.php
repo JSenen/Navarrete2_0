@@ -90,7 +90,7 @@ if (isset($_POST['submit'])) {
             $stmt->bindParam(':etiqueta', $_POST['etiqueta'], PDO::PARAM_STR);
             $stmt->bindParam(':extension', $_POST['extension'], PDO::PARAM_STR);
             $stmt->bindParam(':ubicacion', $_POST['ubicacion'], PDO::PARAM_STR);
-            $stmt->bindParam(':serialnumber', $_POST['serialnumber'], PDO::PARAM_STR);
+            $stmt->bindParam(':serialnumber', $_POST['numserie'], PDO::PARAM_STR);
             $stmt->execute();
         } catch (PDOException $e) {
             echo "ERROR: " . $e->getMessage();
