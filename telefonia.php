@@ -3,7 +3,9 @@
   
 // crear el nuevo formulario de nuevo registro
 function renderForm($etiqueta, $extension, $ubicacion, $numserie, $error)
+
 {
+    $ubicacion = 'DEPOSITO';
     ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -39,8 +41,9 @@ function renderForm($etiqueta, $extension, $ubicacion, $numserie, $error)
             </div>
             
                 <input class="btn btn-primary btn-save" type="submit" name="submit" value="GRABAR">
-            
-        </form>
+        
+                
+        <!-- FORULARIO IMAGEN</form>
         <form name="MiForm" id="MiForm" method="post" action="cargar.php" enctype="multipart/form-data">
         <h4 class="text-center">Seleccione imagen a cargar</h4>
         <div class="form-group">
@@ -50,7 +53,7 @@ function renderForm($etiqueta, $extension, $ubicacion, $numserie, $error)
           </div>
           <input class="btn btn-primary btn-save" type="submit" name="submitimagen" value="GRABAR">
         </div>
-      </form>
+      </form> -->
      </main>
     </body>
     </html>
@@ -92,6 +95,7 @@ if (isset($_POST['submit'])) {
         } catch (PDOException $e) {
             echo "ERROR: " . $e->getMessage();
         }
+        
         /* Una vez que han sido guardados, redirigimos a la p�gina de vista principal*/
         header("Location: telefonia.php");
     }
