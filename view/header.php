@@ -24,7 +24,7 @@
           <li><a href="">Equipos</a></li>
           <li><a href="">Telefonía</a>
               <ul class="submenu">
-                <li><a href="./telefonia.php">Grabar</a></li>
+                <li><a href="./save_phone.php">Grabar</a></li>
                 <li><a href="./telefonia.php">Listado</a></li>
                 <li><a href="./telefonia.php">Extensiones</a></li>
               </ul>  		
