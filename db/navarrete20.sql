@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 03-03-2023 a las 08:36:46
+-- Tiempo de generación: 07-03-2023 a las 19:17:44
 -- Versión del servidor: 5.7.39
 -- Versión de PHP: 8.2.0
 
@@ -51,19 +51,11 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 CREATE TABLE `phones` (
   `id` int(11) NOT NULL,
   `etiqueta_tf` varchar(6) NOT NULL,
-  `extension_tf` varchar(7) NOT NULL,
-  `ubicacion_tf` varchar(20) NOT NULL
+  `extension_tf` varchar(7) DEFAULT NULL,
+  `ubicacion_tf` varchar(20) NOT NULL DEFAULT 'DEPOSITO',
+  `serialnumber_tf` varchar(30) DEFAULT NULL,
+  `img_tf` longblob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `phones`
---
-
-INSERT INTO `phones` (`id`, `etiqueta_tf`, `extension_tf`, `ubicacion_tf`) VALUES
-(1, 'TF-001', '', ''),
-(2, 'TF-002', '', ''),
-(4, 'TF-003', '', ''),
-(5, 'TF-004', '', '');
 
 --
 -- Índices para tablas volcadas
@@ -95,7 +87,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT de la tabla `phones`
 --
 ALTER TABLE `phones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
